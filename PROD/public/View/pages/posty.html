@@ -1,0 +1,26 @@
+
+<div class="row">
+    <div ng-controller="PostsCtrl" class="col-sm-12">
+        <h1>Aktualności</h1>
+        <form role="form">
+            <div class="form-group">
+                <div class="input-group">
+                    <input ng-model="postTresc" placeholder="Treść" class="form-control">
+                    <span class="input-group-btn"> 
+                        <button ng-click="addPost()" class="btn btn-primary" style=" margin-left: 4%;">
+                            Dodaj post
+                        </button>
+                    </span>
+
+                </div>
+            </div>
+        </form>
+
+        <ul class="list-group">
+            <li ng-repeat="post in posts| orderBy:'-data'" class="list-group-item">
+                <b>{{post.name}}:</b>
+                <span>{{post.tresc}}</span>
+            </li>                        
+        </ul>
+    </div>
+</div>
