@@ -1,0 +1,98 @@
+<div class="row">
+    <h1>
+        Dodaj kontrahenta
+    </h1>
+    <form ng-submit="addFirm()" class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="comp_name">Nazwa Firmy:</label>
+            <div class="col-sm-10">
+                <input ng-model="dataSetFirm.company_name" required type="text" class="form-control" id="comp_name" placeholder="wpisz tu nazwę firmy lub imię i nazwisko">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="comp_nip">Numer NIP:</label>
+            <div class="col-sm-10">
+                <input ng-model="dataSetFirm.company_nip" type="text" class="form-control" id="comp_nip" placeholder="wpisz tu numer NIP">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="comp_phone">Numer telefonu:</label>
+            <div class="col-sm-10">
+                <input ng-model="dataSetFirm.company_tel_num" type="text" class="form-control" id="comp_phone" placeholder="wpisz tu numer telefonu">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="comp_adress1">Adres:</label>
+            <div class="col-sm-10">
+                <input ng-model="dataSetFirm.company_adr1" type="text" class="form-control" id="comp_adress1" placeholder="wpisz tu kod pocztowy oraz pocztę">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="comp_adress2"></label>
+            <div class="col-sm-10">
+                <input ng-model="dataSetFirm.company_adr2" type="text" class="form-control" id="comp_adress2" placeholder="wpisz tu ulicę lub miejscowość wraz z numerem domu/mieszkania">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Dodaj</button>
+                <a href="/invoice" class="btn btn-info" role="button">Wstecz</a>
+            </div>
+        </div>
+    </form>    
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h4>Lista kontrahentów</h4>
+        <p>Jeśli brak tu kontrahenta, wypełnij powyższe dane i kliknij "Dodaj"</p>
+        <form>
+            <div class="form-group">
+                <label for="sel1">Wybierz jeden element aby wyświetlić szczegóły:</label>
+                <select class="form-control" id="sel1" ng-model="firms.currenteSeeFirmID"  ng-change="getCurrentSeeFirm(firms.currenteSeeFirmID)">
+                    <option ng-repeat="dealer in firms| orderBy:'-add_date'" ng-value="{{dealer._id|json}}">                        
+                        {{dealer.company_name}}
+                    </option>                    
+                </select>               
+            </div>
+        </form>
+        <div class="row">
+            <form ng-if="firms.currenteSeeFirmID" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Nazwa:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currenteSeeFirm.company_name}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">NIP:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currenteSeeFirm.company_nip}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">Telefon:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currenteSeeFirm.company_tel_num}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">Adres:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currenteSeeFirm.company_adress}}
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">                
+                        <!--<a href="/invoice" class="btn btn-info" role="button">Wstecz</a>-->
+                        <button class="btn btn-danger btn-xs" ng-click="deleteFirm(firms.currenteSeeFirmID)">
+                            <span class="glyphicon glyphicon-remove"></span>    Usuń
+                        </button>
+                    </div>                
+
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>

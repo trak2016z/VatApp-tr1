@@ -1,0 +1,118 @@
+<div class="row">
+    <h1>Kreator faktury krok 2/4</h1>
+    <div class="col-sm-6">
+        <p>Wybrany Sprzedawca</p>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2">Nazwa:</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">                            
+                        {{firms.currentDealer.company_name}}
+                    </p>
+                </div>                    
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <p>Wybrany Nabywca</p>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2">Nazwa:</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">                            
+                        {{firms.currentBuyer.company_name}}
+                    </p>
+                </div>                    
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <table ng-if="dataSet.AddedProd.length !== 0" class="table table-striped table-hover">
+            <tr>
+                <th>Lp.</th>
+                <th>Nazwa towaru lub usługi: </th>
+                <th>J.M.:</th> 
+                <th>Ilość / Zakres:</th>
+                <th>Cena jed. netto:</th>
+                <th>Cena całk. netto:</th> 
+                <th>Stawka pod. VAT:</th>
+                <th>Kwota podatku VAT:</th>
+                <th>Cena całkowita brutto:</th>
+                <th>Opcje:</th>
+
+            </tr>
+            <tr ng-repeat="item in dataSet.AddedProd">
+                <td>{{ $index + 1}}</td>
+                <td>{{ item.name}}</td>
+                <td>{{ item.mj}}</td>
+                <td>{{ item.count}}</td>
+                <td>{{ item.priceOneN | number:2}}</td>
+                <td>{{ item.priceFullN | number:2}}</td>
+                <td>{{ item.taxRate | number:2}}</td>
+                <td>{{ item.taxFullRate | number:2}}</td>
+                <td>{{ item.endPrice | number:2}}</td>
+                <td>
+                    <button class="btn btn-danger btn-xs" ng-click="deleteItem(item._id)">
+                        <span class="glyphicon glyphicon-remove"></span>    Usuń
+                    </button>                   
+                </td>
+            </tr>
+        </table>
+
+        <!--<button ng-if="dataSet.AddedProd.length !== 0" type="submit" ng-click="clearAllItems()" class="btn btn-success in_button_right">Wyczyść</button>-->
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-sm-4">
+            <form>
+                <div class="form-group">
+                    <label for="name_goods">Nazwa towaru lub usługi:</label>
+                    <input ng-model="dataSet.prod.name" type="text" class="form-control" id="name_goods" placeholder="np: Opłata za parking">              
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <form>
+                <div class="form-group">
+                    <label for="name_mj">J.M.:</label>
+                    <input ng-model="dataSet.prod.mj" type="text" class="form-control" id="name_mj" placeholder="np: godz.">              
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <form>
+                <div class="form-group">
+                    <label for="name_count">Ilość / Zakres:</label>
+                    <input min="1" ng-model="dataSet.prod.count" type="number" class="form-control" id="name_count" placeholder="np: 4">              
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <form>
+                <div class="form-group">
+                    <label for="name_price_one_n">Cena jed. netto:</label>
+                    <input min="1" ng-model="dataSet.prod.priceOneN" type="number" class="form-control" id="name_price_one_n" placeholder="np: 50">              
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2">
+            <form>
+                <div class="form-group">
+                    <label for="name_tax_rate">Stawka pod. VAT:</label>
+                    <input min="1" ng-model="dataSet.prod.taxRate" type="number" class="form-control" id="name_tax_rate" placeholder="np: 23%">              
+                </div>
+            </form>
+        </div>  
+        <div ng-if="dataSet.prod.errorMsg" class="alert alert-danger">
+            <strong>Uwaga!</strong> {{dataSet.prod.errorMsg}}
+        </div>
+        <button ng-if="dataSet.prod.name" type="submit" ng-click="addItem()" class="btn btn-success in_button_right">Dodaj</button>
+    </div>
+
+
+    <div class="row">
+        <hr>
+        <a ng-if="dataSet.AddedProd.length !== 0" class="btn btn-success in_button_right" href="/invoice/step3/{{firms.currentDealer._id}}/{{firms.currentBuyer._id}}">Dalej</a>
+        <a class="btn btn-success in_button_left" href="/invoice/">Wstecz</a>
+    </div>
+</div>

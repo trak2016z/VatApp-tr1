@@ -1,0 +1,100 @@
+<div class="row">
+    <h1>Kreator faktury krok 1/4</h1>
+    <div class="col-sm-6">
+        <h2>Wybierz Sprzedawcę</h2>
+        <p>Jeśli brak tu twojego sprzedawcy kliknij <a href="/addCompany">Dodaj</a></p>
+        <form>
+            <div class="form-group">
+                <label for="sel1">Wybierz jeden element aby wyświetlić szczegóły:</label>
+                <select class="form-control" id="sel1" ng-model="firms.currentDealerID"  ng-change="getCurrentDealer(firms.currentDealerID)">
+                    <option ng-repeat="dealer in firms| orderBy:'-add_date'" ng-value="{{dealer._id|json}}">                        
+                        {{dealer.company_name}}
+                    </option>                    
+                </select>               
+            </div>
+        </form>
+        <div class="row">
+            <form ng-if="firms.currentDealerID" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Nazwa:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentDealer.company_name}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">NIP:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentDealer.company_nip}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">Telefon:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentDealer.company_tel_num}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">Adres:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentDealer.company_adress}}
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>        
+    </div>    
+    <div class="col-sm-6">
+        <h2>Wybierz Nabywcę</h2>
+        <p>Jeśli brak tu twojego nabywcy kliknij <a href="/addCompany">Dodaj</a></p>
+        <form>
+            <div class="form-group">
+                <label for="sel2">Wybierz jeden element aby wyświetlić szczegóły:</label>
+                <select class="form-control" id="sel2" ng-model="firms.currentBuyerID" ng-change="getCurrentBuyer(firms.currentBuyerID)">
+                    <option ng-repeat="buyer in firms| orderBy:'-add_date'" ng-value="{{buyer._id|json}}">
+                        {{buyer.company_name}}
+                    </option>
+                </select>                
+            </div>
+        </form>
+        <div class="row">
+            <form ng-if="firms.currentBuyerID" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Nazwa:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentBuyer.company_name}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">NIP:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentBuyer.company_nip}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">Telefon:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentBuyer.company_tel_num}}
+                        </p>
+                    </div>
+                    <label class="control-label col-sm-2">Adres:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">                            
+                            {{firms.currentBuyer.company_adress}}
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </div>
+    <div class="col-sm-12">
+        <!--<button ng-if="firms.currentDealerID && firms.currentBuyerID" type="submit" href="/invoice/{{firms.currentDealerID}}/{{firms.currentBuyerID}}" class="btn btn-success in_button_right">Dalej</button>-->
+        <div ng-if="firms.currentDealerID && firms.currentBuyerID && firms.currentDealerID === firms.currentBuyerID" class="alert alert-danger">
+            <strong>Uwaga!</strong> Według polskiego prawa sprzedawca nie może być identyczny jak nabywca!
+        </div>
+        <a ng-if="firms.currentDealerID && firms.currentBuyerID" class="btn btn-success in_button_right" href="/invoice/{{firms.currentDealerID}}/{{firms.currentBuyerID}}">Dalej</a>
+
+    </div>
+
+</div>
