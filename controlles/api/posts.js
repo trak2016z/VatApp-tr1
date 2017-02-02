@@ -1,8 +1,4 @@
 /* 
- <!--
- RMDocSystem - System do zarządzania dokumentami w technologii Java EE
- Wykonał: inż Robert Międlarz
- -->
  */
 var Post = require('../../models/posts');
 var router = require('express').Router();

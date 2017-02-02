@@ -14,7 +14,9 @@ app.use('/api/posts', require('./controlles/api/posts'));
 
 app.use('/api/sessions', require('./controlles/api/sessions'));
 app.use('/api/users', require('./controlles/api/users'));
-
+app.use('/api/firm', require('./controlles/api/firms'));
+app.use('/api/items', require('./controlles/api/items'));
+app.use('/api/invoices', require('./controlles/api/invoices'));
 
 app.use('/', require('./controlles/static'));
 

@@ -3,12 +3,12 @@
 
 
 angular.module('VatApp')
-        .service('UserSvc', function ($http, $window) {
+        .service('UserSvc', function ($http, $window, $location) {
             var svc = this;
             svc.getUser = function () {
                 return $http.get('/api/users');
             };
-            svc.getAllUsers = function(){
+            svc.getAllUsers = function () {
                 return $http.get('/api/users/all');
             };
             svc.setAuthHeaders = function (token) {
@@ -38,15 +38,16 @@ angular.module('VatApp')
                     }
                 });
             };
-            svc.deleteUser = function (name){
+            svc.deleteUser = function (name) {
                 return $http.post('/api/users/delete', {
                     name: name
-                }).then(function(res){
+                }).then(function (res) {
                     return res.data;
                 });
             };
             svc.logOut = function () {
                 $window.localStorage.removeItem('Token_jwt');
+                $location.path('/');
             };
 
         });
